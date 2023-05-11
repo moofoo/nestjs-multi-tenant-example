@@ -31,7 +31,7 @@ The bind mount maps the db directory on the host to the docker entrypoint direct
 
 The two SQL files in ./db (1_schema.sql and 2_data.sql) are executed when the container is created, creating the schema and populating it with test data.
 
-### [1_schema.sql](https://github.com/moofoo/nestjs-prisma-cls-multi-tenant-example-app/blob/9681274a2f29441d9ec7af32216d05bd170ca5d2/db/1_schema.sql)
+### [1_schema.sql](https://github.com/moofoo/nestjs-multi-tenant-example/blob/main/db/1_schema.sql)
 
 ###### The tables:
 
@@ -67,7 +67,7 @@ create table if not exists public.patients
 );
 ```
 
-###### RLS function:
+RLS function:
 
 ```POSTGRESQL
 create or replace function fn.tenant_data_rls_check(row_tenant_id bigint) returns boolean
@@ -119,7 +119,7 @@ create policy tenancy_policy on public.patients
 
 Note that 1_schema.sql enables these policies at the end of the script, so you don't need to do that yourself.
 
-### [2_data.sql](https://github.com/moofoo/nestjs-prisma-cls-multi-tenant-example-app/blob/9681274a2f29441d9ec7af32216d05bd170ca5d2/db/2_data.sql)
+### [2_data.sql](https://github.com/moofoo/nestjs-multi-tenant-example/blob/main/db/2_data.sql)
 
 This SQL file populates the database with the following test data:
 
@@ -164,6 +164,8 @@ Since all queries by the Admin user have bypass = 1 by default, that user ought 
 ## NGINX Reverse-Proxy
 
 The NGINX reverse-proxy configuration is minimal. It's main job is to route requests where the pathname begins with `/nest` to the NestJS server, and otherwise send requests to the NextJS Webserver:
+
+### [default.conf](https://github.com/moofoo/nestjs-multi-tenant-example/blob/main/nginx/conf.d/default.conf)
 
 ```Nginx
 upstream nextjs_upstream {
@@ -250,10 +252,14 @@ export const PrismaTenancyClientProvider = {
 };
 ```
 
-[Prisma Client extensions](https://www.prisma.io/docs/concepts/components/prisma-client/client-extensions),  
+[Prisma Client extensions](https://www.prisma.io/docs/concepts/components/prisma-client/client-extensions)
+
 [Query Component](https://www.prisma.io/docs/concepts/components/prisma-client/client-extensions/query)
+
 [Prisma - Transactions and batch queries](https://www.prisma.io/docs/concepts/components/prisma-client/transactions)
+
 [Prisma - Raw database access](https://www.prisma.io/docs/concepts/components/prisma-client/raw-database-access#executeraw)
+
 [Postgresql - System Administration Functions (set_config)](https://www.postgresql.org/docs/8.0/functions-admin.html)
 
 ```typescript
