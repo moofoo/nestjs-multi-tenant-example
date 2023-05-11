@@ -12,7 +12,7 @@ docker compose up -d db
 
 yarn
 
-yarn workspace app_prisma local
+yarn workspace app-prisma local
 
 yarn workspace session build
 
