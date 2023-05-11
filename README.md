@@ -35,7 +35,7 @@ The two SQL files in ./db (1_schema.sql and 2_data.sql) are executed when the co
 
 ###### The tables:
 
-```POSTGRESQL
+```sql
 create table if not exists public.tenants
 (
     id bigserial primary key,
@@ -69,7 +69,7 @@ create table if not exists public.patients
 
 RLS function:
 
-```POSTGRESQL
+```sql
 create or replace function fn.tenant_data_rls_check(row_tenant_id bigint) returns boolean
     language plpgsql
 as
@@ -97,7 +97,7 @@ Next, it compares the session value 'tenancy.tenant_id' with the tenant_id value
 
 ###### Policies:
 
-```POSTGRESQL
+```sql
 create policy tenancy_policy on public.tenants
     as permissive
     for all
