@@ -10,8 +10,6 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaTenancyModule } from 'prisma-tenancy';
 import { AppController } from 'app.controller';
 
-//import { DevtoolsModule } from '@nestjs/devtools-integration';
-
 @Module({
   imports: [
     PrismaTenancyModule,
@@ -20,10 +18,7 @@ import { AppController } from 'app.controller';
     PatientsModule,
     AuthModule,
     ConfigModule.forRoot(),
-    ClsModule.forRoot(),
-    /*  DevtoolsModule.register({
-        http: process.env.NODE_ENV !== 'production',
-      }),*/
+    ClsModule.forRoot()
   ],
   providers: [
     {
