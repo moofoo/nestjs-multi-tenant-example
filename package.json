@@ -1,0 +1,20 @@
+{
+  "name": "nestjs-multi-tenant-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "packageManager": "yarn@1.22.19",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "turbo": "^1.9.3"
+  },
+  "scripts": {
+    "init": "bash scripts/init.sh",
+    "reset-db": "bash scripts/reset-db.sh",    
+    "pg-test":"bash scripts/pg-test.sh"
+  }
+}

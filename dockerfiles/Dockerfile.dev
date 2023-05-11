@@ -1,0 +1,35 @@
+# syntax=docker/dockerfile:1.5.2
+
+FROM custom-node:latest AS builder
+WORKDIR /app
+ARG APP
+
+COPY . .
+RUN turbo prune --scope=$APP --docker
+
+FROM custom-node:latest AS installer
+WORKDIR /app
+ARG APP
+
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/yarn.lock ./yarn.lock
+
+COPY apps/${APP}/package.json /app/apps/${APP}/package.json
+
+RUN \
+    --mount=type=cache,target=/usr/local/share/.cache/yarn/v6,sharing=private,id=${APP}cache \
+    yarn --prefer-offline --frozen-lockfile
+
+COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
+
+RUN yarn turbo run build --no-cache --filter=${APP}^... && yarn
+
+FROM custom-node:latest AS runner
+WORKDIR /app
+ARG APP
+ARG START_COMMAND=dev
+
+COPY --from=installer /app .
+
+CMD yarn workspace ${APP} ${START_COMMAND}

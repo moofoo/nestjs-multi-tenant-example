@@ -1,0 +1,20 @@
+{
+    "name": "session",
+    "version": "0.0.0",
+    "private": true,
+    "main": "dist/index.js",
+    "files": [
+        "src/index.ts"
+    ],
+    "scripts": {
+        "build": "npx -y rimraf dist/* && npx tsc"
+    },
+    "dependencies": {
+        "iron-session": "^6.3.1"
+    },
+    "devDependencies": {
+        "@types/node": "^18.16.3",
+        "rimraf": "^5.0.0",
+        "typescript": "^5.0.4"
+    }
+}

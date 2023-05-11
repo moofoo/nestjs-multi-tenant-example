@@ -1,0 +1,7 @@
+# syntax=docker/dockerfile:1.5.2
+
+FROM node:20.1-alpine3.17
+
+RUN apk update -f && apk add -f --no-cache git nano bash wget libc6-compat python3 make g++
+
+RUN yarn global add turbo
