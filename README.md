@@ -5,8 +5,10 @@
 (make sure ports 5432 and 80 are free)
 
 ```console
-	yarn && bash scripts/init.sh
+yarn && bash scripts/init.sh
 ```
+
+App should then be accessible at http://localhost
 
 ## Database Overview
 
