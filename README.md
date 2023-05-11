@@ -2,7 +2,7 @@
 
 ## Initial Setup
 
-(make sure ports 5432 and 80 are free)
+(make sure ports 5432 and 80 are free and docker is running)
 
 ```console
 yarn && bash scripts/init.sh
