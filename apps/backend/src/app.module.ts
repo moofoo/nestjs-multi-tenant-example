@@ -9,7 +9,6 @@ import { AuthModule } from 'auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaTenancyModule } from 'prisma-tenancy';
 import { AppController } from 'app.controller';
-
 @Module({
   imports: [
     PrismaTenancyModule,
