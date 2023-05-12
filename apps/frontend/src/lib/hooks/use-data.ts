@@ -1,17 +1,18 @@
 import React from 'react';
-import { getKyInstance } from '@/lib/ky-instance';
+import { getFetchInstance } from '../ofetch-instance';
+
 
 type MapFn<A> = (value: A, index: number, array: A[]) => A;
 
 export function useData<T>(path: string, mapFn?: MapFn<T>): Partial<T>[] {
 
-    const [ky] = React.useState(() => getKyInstance());
+    const [oFetch] = React.useState(() => getFetchInstance());
 
     const [theData, setData] = React.useState<T[]>([{} as T]);
 
     React.useEffect(() => {
         (async () => {
-            const data: T[] = await ky.get(path).json();
+            const data: T[] = await oFetch(path);
 
             if (Array.isArray(data)) {
                 if (mapFn) {

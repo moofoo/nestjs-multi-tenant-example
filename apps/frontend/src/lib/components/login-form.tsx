@@ -1,7 +1,4 @@
-'use client';
-
 import React from 'react';
-
 import {
     Paper,
     Group,
@@ -18,8 +15,9 @@ import {
     PasswordInput,
     TextInput,
 } from "react-hook-form-mantine";
-import { getKyInstance } from '../ky-instance';
+import { getFetchInstance } from '../ofetch-instance';
 import { useAppStore } from '../zustand/app-store';
+import { FetchResponse } from 'ofetch';
 import { useRouter } from 'next/navigation';
 function getFormData(object: any) {
     const formData = new FormData();
@@ -49,14 +47,19 @@ export function LoginForm() {
     const onSubmitOk = async (data: { userName: string, password: string; }) => {
         const { setLoading } = useAppStore.getState();
         setLoading(true);
-        const ky = getKyInstance();
 
-        const result = await ky.post('auth/login', { json: data });
+        const oFetch = getFetchInstance();
 
-        if ([200, 201].includes(result.status)) {
+        let result = null;
+
+        try {
+            result = await oFetch('auth/login', { method: 'POST', body: data });
+        } catch (err) {
+            console.error(err);
+        }
+
+        if (!!result) {
             router.push('/');
-        } else {
-            throw new Error(`Something went wrong: ${result.status} / ${result.statusText}`);
         }
 
     };

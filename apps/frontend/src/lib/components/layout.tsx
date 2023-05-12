@@ -5,8 +5,8 @@ import { AppShell, Header, Group, Button, Title, Box, LoadingOverlay } from '@ma
 import { usePathname, useRouter } from 'next/navigation';
 import { useAppStore } from '../zustand/app-store';
 import { WatchPathChange } from './loading';
-import { getKyInstance } from '../ky-instance';
 import { shallowEqual } from '@mantine/hooks';
+import { getFetchInstance } from '../ofetch-instance';
 
 export function Layout(props: { children: React.ReactNode, user: { userName?: string, tenantName?: string; }; }) {
     const { children, user } = props;
@@ -27,9 +27,9 @@ export function Layout(props: { children: React.ReactNode, user: { userName?: st
 
         setLoading(true);
 
-        const ky = getKyInstance();
+        const oFetch = getFetchInstance();
 
-        await ky.post('auth/logout');
+        await oFetch('auth/logout', { method: 'POST' });
 
         router.push('/login');
     }, []);
