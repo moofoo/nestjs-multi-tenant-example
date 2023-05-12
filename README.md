@@ -177,7 +177,26 @@ Ought to see all rows in every table
 
 ## NGINX Reverse-Proxy
 
-The NGINX reverse-proxy configuration is minimal. It's main job is to route requests where the pathname begins with `/nest` to the NestJS server, and otherwise send requests to the NextJS Webserver:
+Here is the proxy definition from docker-compose.yml:
+
+```yaml
+  proxy:
+    <<: *defaults
+    image: nginx:1.23.4-alpine
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/proxy.conf:/etc/nginx/proxy.conf
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+```
+
+[nginx config directory](https://github.com/moofoo/nestjs-multi-tenant-example/blob/main/nginx)
+
+The NGINX config is minimal. The reverse-proxy routes pathnames that begin with `/nest` to the NestJS server, otherwise it sends requests to the NextJS frontend.
 
 ### [default.conf](https://github.com/moofoo/nestjs-multi-tenant-example/blob/main/nginx/conf.d/default.conf)
 
@@ -210,6 +229,14 @@ server {
         }
 }
 ```
+
+## Authentication and Session Handling
+
+The app uses [Iron Session](https://github.com/vvo/iron-session) for the encrypted session store (cookie storage). Since both the frontend and backend use the same [config](https://github.com/moofoo/nestjs-multi-tenant-example/tree/main/packages/session/src/index.ts), both are able to read and modify the session. Access control on the frontend is handled by [middleware](https://github.com/moofoo/nestjs-multi-tenant-example/tree/main/apps/frontend/src/middleware.ts). Here is the [login method](https://github.com/moofoo/nestjs-multi-tenant-example/tree/main/apps/backend/src/auth/auth.service.ts)
+
+## Frontend
+
+The frontend is a [NextJS](https://nextjs.org/) app using [Mantine](https://mantine.dev) for the UI.
 
 ## Prisma Implementation
 
