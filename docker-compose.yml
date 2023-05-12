@@ -68,8 +68,6 @@ services:
     <<: *defaults
     expose:
       - 3333
-    ports:
-      - 8000:8000
     command: yarn workspace backend start:dev
     environment:
       - PORT=3333
