@@ -18,7 +18,7 @@ You can log in to the app using one of the following usernames / passwords:
 
 Once logged in you will see data from the 'Patients' table, which will be filtered as per the RLS (row level security) Postgres function.
 
-You can also see Prisma Metrics json output at http://localhost/stats
+You can also see Prisma Metrics json output at http://localhost/nest/stats
 
 ## Database Overview
 
