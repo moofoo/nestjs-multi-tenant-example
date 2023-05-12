@@ -1,5 +1,7 @@
 # nestjs-multi-tenant-example
 
+[dev.to article](https://dev.to/moofoo/nestjspostgresprisma-multi-tenancy-using-nestjs-prisma-nestjs-cls-and-prisma-client-extensions-ok7)
+
 ## Initial Setup
 
 (make sure ports 5432 and 80 are free and docker is running)
