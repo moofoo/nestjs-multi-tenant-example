@@ -5,6 +5,8 @@ WORKDIR /app
 ARG APP
 
 COPY . .
+
+## see https://turbo.build/repo/docs/reference/command-line-reference#turbo-prune---scopetarget
 RUN turbo prune --scope=$APP --docker
 
 FROM custom-node:latest AS installer
@@ -14,6 +16,7 @@ ARG APP
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/yarn.lock ./yarn.lock
 
+# this ensures the container re-builds correctly when dependencies change
 COPY apps/${APP}/package.json /app/apps/${APP}/package.json
 
 RUN \
@@ -23,6 +26,7 @@ RUN \
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
 
+## --filter=frontend^... means all of frontend's dependencies will be built, but not the frontend app itself (which we don't need to do for dev environment)
 RUN yarn turbo run build --no-cache --filter=${APP}^... && yarn
 
 FROM custom-node:latest AS runner
