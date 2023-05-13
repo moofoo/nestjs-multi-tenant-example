@@ -14,22 +14,31 @@ function endpoint() {
 export const getFetchInstance = (opts?: FetchOptions) => {
       opts = opts || {};
 
+      if (typeof window !== 'undefined') {
+            opts = {
+                  ...opts,
+                  onRequestError(context) {
+                        const { setLoading } = useAppStore.getState();
+                        setLoading(false);
+
+                        const { error } = context;
+                        throw new Error(error?.message);
+                  },
+                  onResponseError(context) {
+                        const { setLoading } = useAppStore.getState();
+                        setLoading(false);
+
+
+                        const { error } = context;
+                        throw new Error(error?.message);
+                  }
+            };
+      }
+
       const instance = ofetch.create({
             ...opts,
             baseURL: opts.baseURL || endpoint(),
             credentials: opts.credentials || 'include',
-            onRequestError(context) {
-                  const { setLoading } = useAppStore.getState();
-                  setLoading(false);
-                  const { error } = context;
-                  throw new Error(error?.message);
-            },
-            onResponseError(context) {
-                  const { setLoading } = useAppStore.getState();
-                  setLoading(false);
-                  const { error } = context;
-                  throw new Error(error?.message);
-            },
       });
 
       return instance;

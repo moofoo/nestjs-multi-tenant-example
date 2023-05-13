@@ -8,27 +8,15 @@ import {
     Title,
     Box,
 } from '@mantine/core';
-
+import { useRouter } from 'next/navigation';
 import { useForm } from "react-hook-form";
-
 import {
     PasswordInput,
     TextInput,
 } from "react-hook-form-mantine";
+
 import { getFetchInstance } from '../ofetch-instance';
 import { useAppStore } from '../zustand/app-store';
-import { FetchResponse } from 'ofetch';
-import { useRouter } from 'next/navigation';
-function getFormData(object: any) {
-    const formData = new FormData();
-    Object.keys(object).forEach(key => formData.append(key, object[key]));
-    return formData;
-}
-
-
-/*
-post(url: string, data?: any, config?: AxiosRequestConfig<any> | undefined): Promise<AxiosResponse<any, any>>
-*/
 
 export function LoginForm() {
 
@@ -39,10 +27,7 @@ export function LoginForm() {
         }
     });
 
-    //const [ky] = React.useState(() => getKyInstance());
-
     const router = useRouter();
-
 
     const onSubmitOk = async (data: { userName: string, password: string; }) => {
         const { setLoading } = useAppStore.getState();
@@ -61,7 +46,6 @@ export function LoginForm() {
         if (!!result) {
             router.push('/');
         }
-
     };
 
     return (

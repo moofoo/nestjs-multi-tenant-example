@@ -16,19 +16,7 @@ export class PrismaTenancyService {
         return this.bypassService;
     }
 
-    switch(bypass: boolean | SessionUser | 'session') {
-        const session = this.store.get('session');
-
-        if (typeof bypass === 'object' && bypass?.isAdmin === true) {
-            return this.bypassService;
-
-        } else if (bypass === 'session' && session?.isAdmin === true) {
-            return this.bypassService;
-
-        } else if (bypass === true) {
-            return this.bypassService;
-        }
-
-        return this.tenantService;
+    public switch(bypass?: boolean) {
+        return bypass ? this.bypassService : this.tenantService;
     }
 }

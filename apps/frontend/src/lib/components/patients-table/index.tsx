@@ -1,7 +1,8 @@
 import React from 'react';
+import dayjs from 'dayjs';
 import { Center, Box, Stack, Title } from '@mantine/core';
 import { MantineReactTable } from 'mantine-react-table';
-import dayjs from 'dayjs';
+
 import type { Patient } from 'app-prisma';
 import { useData } from '@/lib/hooks/use-data';
 import { columns } from './columns';
@@ -24,7 +25,6 @@ export default function PatientsTable() {
                     </Box>
 
                     <MantineReactTable
-
                         columns={columns}
                         data={data}
                         enableColumnActions={false}
@@ -34,7 +34,6 @@ export default function PatientsTable() {
                         enableBottomToolbar={false}
                         enableTopToolbar={false}
                         mantineTableProps={{
-
                             highlightOnHover: false,
                             withColumnBorders: true,
                         }}
@@ -43,13 +42,9 @@ export default function PatientsTable() {
                         mantineTableHeadProps={{ h: 5 }}
                         mantineTableHeadRowProps={{ h: 5 }}
                         initialState={{ density: 'xs' }}
-
                     />
-
                 </Stack>
             </Box>
         </Center>
     );
-
-
 }

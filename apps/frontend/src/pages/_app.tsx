@@ -1,31 +1,12 @@
-import { AppProps } from 'next/app';
-import Head from 'next/head';
-import { MantineProvider } from '@mantine/core';
-import { Layout } from '@/lib/components/layout';
 import React from 'react';
-
-import { useShallowEffect } from '@mantine/hooks';
-import { useAppStore } from '@/lib/zustand/app-store';
+import Head from 'next/head';
+import { AppProps } from 'next/app';
 import { usePathname } from 'next/navigation';
-import { StoreUser } from '@/lib/types';
+import { MantineProvider } from '@mantine/core';
+import { useShallowEffect } from '@mantine/hooks';
 
-export function useStoreUser(props: { user?: StoreUser; }) {
-    const { user } = props;
-
-    const pathname = usePathname();
-
-    useShallowEffect(() => {
-        if (pathname === '/login') {
-            localStorage.removeItem('app-store-storage');
-        } else {
-            const { setUser, user: storeUser } = useAppStore.getState();
-            if (!!user && storeUser?.userName !== user?.userName) {
-                setUser(user);
-            }
-        }
-    }, [user, pathname]);
-
-}
+import { useAppStore } from '@/lib/zustand/app-store';
+import { Layout } from '@/lib/components/layout';
 
 export default function App(props: AppProps) {
     const { Component, pageProps } = props;

@@ -1,11 +1,10 @@
-'use client';
-
 import React from 'react';
 import { AppShell, Header, Group, Button, Title, Box, LoadingOverlay } from '@mantine/core';
 import { usePathname, useRouter } from 'next/navigation';
-import { useAppStore } from '../zustand/app-store';
-import { WatchPathChange } from './loading';
 import { shallowEqual } from '@mantine/hooks';
+
+import { useAppStore } from '../zustand/app-store';
+import { WatchPathChange } from './watch-path';
 import { getFetchInstance } from '../ofetch-instance';
 
 export function Layout(props: { children: React.ReactNode, user: { userName?: string, tenantName?: string; }; }) {
