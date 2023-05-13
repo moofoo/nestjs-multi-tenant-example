@@ -13,8 +13,6 @@ function endpoint() {
 
 export const getFetchInstance = (opts?: FetchOptions) => {
       opts = opts || {};
-      opts.baseURL = endpoint();
-      opts.credentials = 'include';
 
       const instance = ofetch.create({
             ...opts,

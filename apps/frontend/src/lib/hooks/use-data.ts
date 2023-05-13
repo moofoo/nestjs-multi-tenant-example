@@ -1,7 +1,6 @@
 import React from 'react';
 import { getFetchInstance } from '../ofetch-instance';
 
-
 type MapFn<A> = (value: A, index: number, array: A[]) => A;
 
 export function useData<T>(path: string, mapFn?: MapFn<T>): Partial<T>[] {
@@ -16,7 +15,7 @@ export function useData<T>(path: string, mapFn?: MapFn<T>): Partial<T>[] {
 
             if (Array.isArray(data)) {
                 if (mapFn) {
-                    setData(data.map<T>(mapFn));
+                    setData(data.map(mapFn));
                 } else {
                     setData(data);
                 }
