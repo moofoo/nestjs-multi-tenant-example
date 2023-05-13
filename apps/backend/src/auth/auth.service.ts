@@ -47,13 +47,7 @@ export class AuthService {
     async logout() {
         const session = this.store.get('session');
 
-        for (const key of Object.keys(session)) {
-            if (!['save', 'destroy'].includes(key)) {
-                delete session[key];
-            }
-        }
-
-        await session.save();
+        await session.destroy();
 
         return 'ok';
     }
