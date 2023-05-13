@@ -234,7 +234,7 @@ server {
 
 ## Authentication and Session Handling
 
-The app uses [Iron Session](https://github.com/vvo/iron-session) for the encrypted session store (cookie storage). Since both the frontend and backend use the same [config](https://github.com/moofoo/nestjs-multi-tenant-example/tree/main/packages/session/src/index.ts), both are able to read and modify the session. Access control on the frontend is handled by [middleware](https://github.com/moofoo/nestjs-multi-tenant-example/tree/main/apps/frontend/src/middleware.ts). Here is the [login method](https://github.com/moofoo/nestjs-multi-tenant-example/tree/main/apps/backend/src/auth/auth.service.ts)
+The app uses [Iron Session](https://github.com/vvo/iron-session) for the encrypted session store (cookie storage). Since both the frontend and backend use the same [config](https://github.com/moofoo/nestjs-multi-tenant-example/tree/main/packages/session/src/index.ts), both are able to read and modify the session. Access control on the frontend is handled by [NextJS middleware](https://github.com/moofoo/nestjs-multi-tenant-example/tree/main/apps/frontend/src/middleware.ts). Here is the [backend login method](https://github.com/moofoo/nestjs-multi-tenant-example/tree/main/apps/backend/src/auth/auth.service.ts)
 
 #
 
