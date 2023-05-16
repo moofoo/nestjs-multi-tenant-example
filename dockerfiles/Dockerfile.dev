@@ -23,7 +23,7 @@ COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
 
 ## --filter=frontend^... means all of frontend's dependencies will be built, but not the frontend app itself (which we don't need to do for dev environment)
-RUN yarn turbo run build --no-cache --filter=${APP}^...
+RUN turbo run build --no-cache --filter=${APP}^...
 
 
 # re-running yarn is necessary to catch changes to deps between workspaces
