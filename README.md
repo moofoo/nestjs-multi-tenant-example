@@ -18,7 +18,7 @@ You can log in to the app using one of the following usernames / passwords:
 - user2:user2
 - admin:admin
 
-Once logged in you will see data from the 'Patients' table, which will be filtered as per the RLS (row level security) Postgres function.
+Once logged in you will see data from the 'Patients' table, which will be filtered as per the Postgres RLS policy.
 
 You can also see Prisma Metrics json output at http://localhost/nest/stats
 
@@ -249,3 +249,65 @@ The frontend is a [NextJS](https://nextjs.org/) app using [Mantine](https://mant
 ## Prisma Implementation
 
 Check out the [prisma-tenancy directory](https://github.com/moofoo/nestjs-multi-tenant-example/tree/main/apps/backend/src/prisma-tenancy) in `apps/backend/src`
+
+#
+
+## Docker Notes
+
+Follow these steps when adding app dependencies:
+
+#### 1 - Add the dependencies
+
+```
+yarn workspace add APP_NAME DEPENDENCY (or yarn workspace add -D ... for dev deps)
+```
+
+for example,
+
+```
+yarn workspace backend add bcrypt
+```
+
+#### 2 - Stop the relevant service
+
+```
+docker compose stop backend
+```
+
+#### 3 - Start the service ith 'detach', 'build', 'force-recreate' and 'recreate anonymous volumes' flags
+
+```
+docker compose up -d --build --force-recreate -V backend
+```
+
+Note that if you restart your project without those flags after changing dependencies, you will then need to re-build with the --no-cache flag
+
+```
+docker compose build --no-cache backend
+```
+
+### Prisma Resources
+
+- [Client Extensions](https://www.prisma.io/docs/concepts/components/prisma-client/client-extensions)
+- [Query Extension](https://www.prisma.io/docs/concepts/components/prisma-client/client-extensions/query)
+- [Transactions and batch queries](https://www.prisma.io/docs/concepts/components/prisma-client/transactions)
+- [Raw database access](https://www.prisma.io/docs/concepts/components/prisma-client/raw-database-access#executeraw)
+- [nestjs-cls](https://github.com/Papooch/nestjs-cls)
+- [nestjs-prisma](https://nestjs-prisma.dev/)
+
+### Postgres Resources
+
+- [Row Security Policies](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)
+- [System Administration Functions (set_config)](https://www.postgresql.org/docs/8.0/functions-admin.html)
+
+### NestJS Resources
+
+- [Custom Factory Provider](https://docs.nestjs.com/fundamentals/custom-providers#factory-providers-usefactory)
+- [Recipe: AsyncLocalStorage](https://docs.nestjs.com/recipes/async-local-storage)
+- [Recipe: Prisma](https://docs.nestjs.com/recipes/prisma)
+
+### NGINX
+
+- [Beginner's Guide](http://nginx.org/en/docs/beginners_guide.html)
+- [Using the Forwarded Header](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)
+- [Full Config Example](https://www.nginx.com/resources/wiki/start/topics/examples/full/)
