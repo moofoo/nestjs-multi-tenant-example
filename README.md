@@ -274,7 +274,7 @@ yarn workspace backend add bcrypt
 docker compose stop backend
 ```
 
-#### 3 - Start the service ith 'detach', 'build', 'force-recreate' and 'recreate anonymous volumes' flags
+#### 3 - Start the service with the flags for 'detach', 'build', 'force-recreate' and 'recreate anonymous volumes'
 
 ```
 docker compose up -d --build --force-recreate -V backend
