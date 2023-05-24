@@ -1,6 +1,12 @@
 # nestjs-multi-tenant-example
 
-[dev.to article](https://dev.to/moofoo/nestjspostgresprisma-multi-tenancy-using-nestjs-prisma-nestjs-cls-and-prisma-client-extensions-ok7)
+[Dev.to Article](https://dev.to/moofoo/nestjspostgresprisma-multi-tenancy-using-nestjs-prisma-nestjs-cls-and-prisma-client-extensions-ok7)
+
+[Another Example Repo](https://github.com/moofoo/nestjs-postgres-tenancy-examples)
+
+(This repo demonstrates how to do request-scoped and durable request-scoped providers in addition to the AsyncLocalStorage based implementation, check branches)
+
+#
 
 ## Initial Setup
 
