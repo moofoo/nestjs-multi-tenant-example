@@ -2,9 +2,7 @@
 
 [Dev.to Article](https://dev.to/moofoo/nestjspostgresprisma-multi-tenancy-using-nestjs-prisma-nestjs-cls-and-prisma-client-extensions-ok7)
 
-[Another Example Repo](https://github.com/moofoo/nestjs-postgres-tenancy-examples)
-
-(This repo demonstrates how to do request-scoped and durable request-scoped providers in addition to the AsyncLocalStorage based implementation, check branches)
+Here is a [second and more thorough example repo](https://github.com/moofoo/nestjs-prisma-postgres-tenancy). Checkout branch [`async-hooks`](https://github.com/moofoo/nestjs-prisma-postgres-tenancy/tree/async-hooks) to see the AsyncLocalStorage-based implementation (which is basically the same as this repo). It also demonstrates how to use request-scoped providers (`main` branch) and durable request-scoped providers (`durable` branch).
 
 #
 
